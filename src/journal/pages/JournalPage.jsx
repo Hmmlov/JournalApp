@@ -1,15 +1,30 @@
 import { AddOutlined } from "@mui/icons-material";
 import { IconButton, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { startNewNote } from "../../store/journal";
 import { JournalLayout } from "../layout/JournalLayout";
 import { NoteView, NothingSelectedView } from "../views";
 
 export const JournalPage = () => {
+
+
+  const dispatch = useDispatch();
+
+  const { isSaving, active } = useSelector(state => state.journal)
+  
+  const onClickNewNote =() => {
+    dispatch( startNewNote() );
+  }
   return (
     <JournalLayout>
-      <NothingSelectedView />
-      {/* <NoteView /> */}
+
+      {
+        (!!active) ? <NoteView /> : <NothingSelectedView />
+      }
       <IconButton
+        onClick={onClickNewNote}
         size="large"
+        disabled={isSaving}
         sx={{
           color: "white",
           backgroundColor: "error.main",
@@ -21,7 +36,6 @@ export const JournalPage = () => {
       >
         <AddOutlined sx={{fontSize:30}}/>
       </IconButton>
-      {/* <Typography>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, recusandae perspiciatis illo delectus repellat soluta voluptatem nam voluptates temporibus! Provident harum tempore itaque pariatur dolores veritatis officia consequatur. Consequatur explicabo quo, ut amet est similique qui maxime hic excepturi labore porro enim molestiae nam! Soluta earum cumque dicta consequuntur accusamus assumenda! Quae eum vitae facere modi ducimus hic aspernatur, culpa dolorem, sit doloribus deserunt. Nam?</Typography> */}
     </JournalLayout>
   );
 };
