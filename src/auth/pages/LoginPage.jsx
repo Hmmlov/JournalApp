@@ -12,6 +12,12 @@ import { useForm } from "../../hooks";
 import { startGoogleSignIn, startLoginWithEmailPassword } from "../../store/auth";
 /* ---------- Layour reutilizable ----------*/
 import { AuthLayout } from "../layout/AuthLayout";
+
+const formData = {
+  email: '',
+  password: '',
+
+}
 export const LoginPage = () => {
 
   const { status, errorMessage } = useSelector(state => state.auth)
@@ -19,11 +25,9 @@ export const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const {email, password, onInputChange} = useForm({
-    email: '',
-    password: '',
+  const {email, password, onInputChange} = useForm(formData)
 
-  })
+  /* no podemos tener la construcción den uestro useform directamente, hay que crearlo en una variable para que lo contenga y llamarlo */
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
 

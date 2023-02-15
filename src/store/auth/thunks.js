@@ -1,4 +1,5 @@
 import { startloginWithEmailPassword, registerUserWithEmailPassword, singInWithGoogle, logoutFirebase } from "../../firebase/providers";
+import { clearNotesLogout } from "../journal";
 /* importación de Store/Auth/index */
 import { checkingCredentials, login, logout } from "./index"
 
@@ -49,7 +50,7 @@ export const startLogout = () => {
         
 
         await logoutFirebase();
-
+        dispatch(clearNotesLogout());
         dispatch(logout({}));
 
 
